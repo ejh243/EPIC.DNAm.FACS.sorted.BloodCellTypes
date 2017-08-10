@@ -11,5 +11,8 @@ RoxygenNote: 6.0.1.9000
 Imports: minfi,
     genefilter,
     quadprog
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr
 URL: http://github.com/hadley/dplyr
 BugReports: http://github.com/hadley/dplyr/issues
