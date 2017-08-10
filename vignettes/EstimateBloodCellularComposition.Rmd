@@ -1,13 +1,15 @@
 ---
-title: "Vignette Title"
-author: "Vignette Author"
+title: "Estimate cellular composition from blood DNA methylation data"
+author: "Eilis Hannon"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\EstimateBloodCellularCOmposition{Vignette Title}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+
+This vignette is designed to demonstrate how to use he reference DNA methyation data for purified blood cell types to estimate cellular proportions from whole blood DNA methylation data. The reference data were generated with the Illumina Infinium?? MethylationEPIC BeadChip, it is expected that users will also have data from the same technology.
 
 Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
 
