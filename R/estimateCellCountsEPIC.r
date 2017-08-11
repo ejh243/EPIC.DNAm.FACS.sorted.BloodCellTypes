@@ -7,12 +7,46 @@
 #' @examples
 #' estimateCellCountsEPIC()
 
-estimateCellCountsEPIC<-function(userData, compositeCellType = "Blood",processMethod = "auto",probeSelect = "auto", cellTypes = c("CD8T","CD4T", "Bcell","Mono","Gran"), returnAll = FALSE, meanPlot = FALSE, verbose = TRUE){
-	#load("/mnt/data1/Eilis/Projects/Asthma/idats/EPICCellSortedBloodReferencePanel.rda")
+### skips normalisation step
+
+estimateCellCountsEPIC<-function(userData, platform = c("450K", "EPIC"), compositeCellType = "Blood",processMethod = "auto",probeSelect = "auto", cellTypes = c("CD8T","CD4T", "Bcell","Mono","Gran"), returnAll = FALSE, meanPlot = FALSE, verbose = TRUE){
+	if(platform == EPIC){
+		referenceRGset<-RGSet.ref
+	} else {
+		referenceRGset<-RGSet.ref.450k
+	}
+	if(verbose) message("[estimateCellCounts] Combining user data with reference (flow sorted) data.\n")
+    newpd <- DataFrame(sampleNames = c(colnames(userData), colnames(referenceRGset)),
+                       studyIndex = rep(c("user", "reference"),
+                                        times = c(ncol(rgSet), ncol(referenceRGset))),
+                       stringsAsFactors = FALSE)
+    referencePd <- colData(referenceRGset)
+	if(platform == EPIC){
+		combinedRGset <- combineArrays(rgSet, referenceRGset, outType = "IlluminaHumanMethylationEPIC")
+	
+	} else {
+		combinedRGset <- combineArrays(rgSet, referenceRGset, outType = "IlluminaHumanMethylation450k")
+	}
+    colData(combinedRGset) <- newpd
+    colnames(combinedRGset) <- newpd$sampleNames
+    rm(referenceRGset)
+    
+    if(verbose) message("[estimateCellCounts] Processing user and reference data together.\n")
+    
+    combinedMset <- processMethod(combinedRGset) 
+    rm(combinedRGset)
+    
+    ## Extracts normalized reference data 
+    referenceMset <- combinedMset[, combinedMset$studyIndex == "reference"]
+    colData(referenceMset) <- as(referencePd, "DataFrame")
+    mSet <- combinedMset[, combinedMset$studyIndex == "user"]
+    colData(mSet) <- as(colData(rgSet), "DataFrame")
+    rm(combinedMset)
+
 	if(verbose) cat("[estimateCellCounts] Picking probes for composition estimation.\n")
+	
 	compData <- pickCompProbes(referenceMset)
 	coefs <- compData$coefEsts
-	#rm(referenceMset)
 		
 	if(verbose) cat("[estimateCellCounts] Estimating composition.\n")
 	counts <- projectCellType(getBeta(userData)[rownames(coefs), ], coefs)
