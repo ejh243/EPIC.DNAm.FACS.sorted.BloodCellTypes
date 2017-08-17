@@ -2,6 +2,7 @@
 #'
 #' 
 #' @param userData is an RGChannelSet
+#' @param EPIC is logical indicate whether userData were profiled with the 450K array
 #' @keywords 
 #' @export
 #' @examples
@@ -9,8 +10,18 @@
 
 ### skips normalisation step
 
-estimateCellCountsEPIC<-function(userData, platform = c("450K", "EPIC"), compositeCellType = "Blood",processMethod = "auto",probeSelect = "auto", cellTypes = c("CD8T","CD4T", "Bcell","Mono","Gran"), returnAll = FALSE, meanPlot = FALSE, verbose = TRUE){
-	if(platform == EPIC){
+estimateCellCountsEPIC<-function(userData, EPIC = TRUE, compositeCellType = "Blood",processMethod = "auto",probeSelect = "auto", cellTypes = c("CD8T","CD4T", "Bcell","Mono","Gran"), returnAll = FALSE, meanPlot = FALSE, verbose = TRUE){
+
+	if ((processMethod == "auto") && (compositeCellType %in% c("Blood", "DLPFC")))
+        processMethod <- "preprocessQuantile"
+    if ((processMethod == "auto") && (!compositeCellType %in% c("Blood", "DLPFC")))
+        processMethod <- "preprocessNoob"
+    processMethod <- get(processMethod)
+    if ((probeSelect == "auto") && (compositeCellType == "CordBlood")){
+        probeSelect <- "any"} 
+    if ((probeSelect == "auto") && (compositeCellType != "CordBlood")){
+        probeSelect <- "both"}
+	if(EPIC){
 		referenceRGset<-RGSet.ref
 	} else {
 		referenceRGset<-RGSet.ref.450k
@@ -18,16 +29,15 @@ estimateCellCountsEPIC<-function(userData, platform = c("450K", "EPIC"), composi
 	if(verbose) message("[estimateCellCounts] Combining user data with reference (flow sorted) data.\n")
     newpd <- DataFrame(sampleNames = c(colnames(userData), colnames(referenceRGset)),
                        studyIndex = rep(c("user", "reference"),
-                                        times = c(ncol(rgSet), ncol(referenceRGset))),
-                       stringsAsFactors = FALSE)
-    referencePd <- colData(referenceRGset)
-	if(platform == EPIC){
-		combinedRGset <- combineArrays(rgSet, referenceRGset, outType = "IlluminaHumanMethylationEPIC")
+                                        times = c(ncol(userData), ncol(referenceRGset))))
+    referencePd <- pData(referenceRGset)
+	if(EPIC){
+		combinedRGset <- combineArrays(userData, referenceRGset, outType = "IlluminaHumanMethylationEPIC")
 	
 	} else {
-		combinedRGset <- combineArrays(rgSet, referenceRGset, outType = "IlluminaHumanMethylation450k")
+		combinedRGset <- combineArrays(userData, referenceRGset, outType = "IlluminaHumanMethylation450k")
 	}
-    colData(combinedRGset) <- newpd
+    pData(combinedRGset) <- newpd
     colnames(combinedRGset) <- newpd$sampleNames
     rm(referenceRGset)
     
@@ -40,12 +50,12 @@ estimateCellCountsEPIC<-function(userData, platform = c("450K", "EPIC"), composi
     referenceMset <- combinedMset[, combinedMset$studyIndex == "reference"]
     colData(referenceMset) <- as(referencePd, "DataFrame")
     mSet <- combinedMset[, combinedMset$studyIndex == "user"]
-    colData(mSet) <- as(colData(rgSet), "DataFrame")
+    colData(mSet) <- as(pData(userData), "DataFrame")
     rm(combinedMset)
 
 	if(verbose) cat("[estimateCellCounts] Picking probes for composition estimation.\n")
 	
-	compData <- pickCompProbes(referenceMset)
+	compData <- pickCompProbes(referenceMset, cellTypes = cellTypes)
 	coefs <- compData$coefEsts
 		
 	if(verbose) cat("[estimateCellCounts] Estimating composition.\n")
