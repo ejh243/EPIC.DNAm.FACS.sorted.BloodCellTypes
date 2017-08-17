@@ -24,7 +24,7 @@ estimateCellCountsEPIC<-function(userData, EPIC = TRUE, compositeCellType = "Blo
 	if(EPIC){
 		referenceRGset<-RGSet.ref
 	} else {
-		referenceRGset<-RGSet.ref.450k
+		referenceRGset<-convertArray(RGSet.ref,outType = "IlluminaHumanMethylation450k",verbose = FALSE)
 	}
 	if(verbose) message("[estimateCellCounts] Combining user data with reference (flow sorted) data.\n")
     newpd <- DataFrame(sampleNames = c(colnames(userData), colnames(referenceRGset)),
