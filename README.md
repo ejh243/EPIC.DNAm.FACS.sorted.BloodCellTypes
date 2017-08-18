@@ -3,7 +3,6 @@ This package provides reference data from FACs sorted blood cell types and a fun
 The reference data were generated with the Illumina Infinium MethylationEPIC BeadChip and includes CD4 T cells, CD8 T cells, B cells, Monocytes and Granulocytes. Th output is a matrix with one column per cell type and one row per sample where the values represent the estimated cellular proportion for that sample and that cell type. 
 
 
-### Install the package
 
 ## Requirements
 
@@ -12,6 +11,9 @@ minfi
 genefilter
 IlluminaHumanMethylationEPICmanifest
 IlluminaHumanMethylation450kmanifest (if your data was profiled with the 450K array rather than the EPIC)
+
+## Install the package
+
 
 The commands below will install the package directly from github.
 
