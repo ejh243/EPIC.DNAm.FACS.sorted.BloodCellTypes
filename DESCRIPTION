@@ -10,7 +10,8 @@ LazyData: true
 RoxygenNote: 6.0.1.9000
 Imports: minfi,
     genefilter,
-    quadprog
+    quadprog,
+	IlluminaHumanMethylationEPICmanifest
 Suggests: knitr,
     rmarkdown
 VignetteBuilder: knitr
