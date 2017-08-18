@@ -15,5 +15,5 @@ Imports: minfi,
 Suggests: knitr,
     rmarkdown
 VignetteBuilder: knitr
-URL: http://github.com/hadley/dplyr
-BugReports: http://github.com/hadley/dplyr/issues
+URL: https://github.com/ejh243/EPICBloodCompCalc
+BugReports: https://github.com/ejh243/EPICBloodCompCalc/issues
