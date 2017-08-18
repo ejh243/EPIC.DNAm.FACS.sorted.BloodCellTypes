@@ -5,7 +5,16 @@ The reference data were generated with the Illumina Infinium MethylationEPIC Bea
 
 ### Install the package
 
-The commands below will install the package directly from github. NB it assumes minfi is already installed. 
+## Requirements
+
+For the package to work it requires the following packages to also be installed
+minfi
+genefilter
+IlluminaHumanMethylationEPICmanifest
+IlluminaHumanMethylation450kmanifest (if your data was profiled with the 450K array rather than the EPIC)
+
+The commands below will install the package directly from github.
+
 
 ```{r,eval=FALSE}
 
@@ -13,7 +22,5 @@ install.packages("devtools")
 library("devtools")
 install_github("ejh243/EPICBloodCompCalc")
 library(EPICBloodCompCalc)
-library(minfi)
-
 ```
 
