@@ -21,7 +21,7 @@ This vignette demonstrates how to use the provided reference DNA methyation data
 
 ### Install the package
 
-The commands below will install the package directly from GitHub. NB it assumes minfi is already installed. 
+The commands below will install the package directly from GitHub. NB it assumes minfi, genefilter and quadprog, IlluminaHumanMethylationEPICmanifest, IlluminaHumanMethylation450kmanifest are already installed. 
 
 ```{r,eval=FALSE}
 
@@ -32,12 +32,14 @@ library(EPICBloodCompCalc)
 library(minfi)
 library(genefilter)
 library(quadprog)
+library(IlluminaHumanMethylationEPICmanifest)
+library(IlluminaHumanMethylation450kmanifest) # only if your data were profiled with the 450K array.
 
 ```
 
 ### Estimate cellular composition
 
-To estimate cellular composition you need to load your data in from idats files to an RGChannel Set object. This code will do this.
+To estimate cellular composition you need to load your data in from idats files to an RGChannelSet object. This code will do this.
 
 
 ```{r,eval=FALSE}
