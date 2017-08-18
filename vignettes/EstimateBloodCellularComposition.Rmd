@@ -9,18 +9,19 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+## Estimate cellular composition from blood DNA methylation data
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-This vignette demonstrates how to use the reference DNA methyation data to estimate cellular proportions from whole blood DNA methylation data. The reference data were generated with the Illumina Infinium MethylationEPIC BeadChip and includes CD4 T cells, CD8 T cells, B cells, Monocytes and Granulocytes. Th output is a matrix with one column per cell type and one row per sample where the values represent the estimated cellular proportion for that sample and that cell type. 
+This vignette demonstrates how to use the provided reference DNA methyation data for purified blood cell types to estimate cellular proportions. The reference data were generated with the Illumina Infinium MethylationEPIC BeadChip and includes CD4 T cells, CD8 T cells, B cells, Monocytes and Granulocytes. The output is a matrix with one column per cell type and one row per sample where the values represent the estimated cellular proportion for that sample and that cell type.The estimates are derived using the Houseman reference based algorithm. 
 
 
 ### Install the package
 
-The commands below will install the package directly from github. NB it assumes minfi is already installed. 
+The commands below will install the package directly from GitHub. NB it assumes minfi is already installed. 
 
 ```{r,eval=FALSE}
 
@@ -29,12 +30,14 @@ library("devtools")
 install_github("ejh243/EPICBloodCompCalc")
 library(EPICBloodCompCalc)
 library(minfi)
+library(genefilter)
+library(quadprog)
 
 ```
 
 ### Estimate cellular composition
 
-To etsimate cellular composition you need to load your data in from idats files to an RGChannel Set object. This code will do this.
+To estimate cellular composition you need to load your data in from idats files to an RGChannel Set object. This code will do this.
 
 
 ```{r,eval=FALSE}

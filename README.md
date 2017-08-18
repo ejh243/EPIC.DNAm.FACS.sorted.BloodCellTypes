@@ -7,15 +7,16 @@ The reference data were generated with the Illumina Infinium MethylationEPIC Bea
 ## Requirements
 
 For the package to work it requires the following packages to also be installed
-minfi
-genefilter
-IlluminaHumanMethylationEPICmanifest
-IlluminaHumanMethylation450kmanifest (if your data was profiled with the 450K array rather than the EPIC)
+*minfi
+*genefilter
+*quadprog
+*IlluminaHumanMethylationEPICmanifest
+*IlluminaHumanMethylation450kmanifest (if your data was profiled with the 450K array rather than the EPIC)
 
 ## Install the package
 
 
-The commands below will install the package directly from github.
+The commands below will install the package directly from GitHub.
 
 
 ```{r,eval=FALSE}
