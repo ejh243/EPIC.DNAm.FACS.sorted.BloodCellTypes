@@ -26,7 +26,7 @@ estimateCellCountsEPIC<-function(userData, EPIC = TRUE, compositeCellType = "Blo
 	} else {
 		referenceRGset<-convertArray(RGSet.ref,outType = "IlluminaHumanMethylation450k",verbose = FALSE)
 	}
-	if(verbose) message("[estimateCellCounts] Combining user data with reference (flow sorted) data.\n")
+	if(verbose) message("Combining user data with reference (flow sorted) data.\n")
     newpd <- DataFrame(sampleNames = c(colnames(userData), colnames(referenceRGset)),
                        studyIndex = rep(c("user", "reference"),
                                         times = c(ncol(userData), ncol(referenceRGset))))
@@ -41,7 +41,7 @@ estimateCellCountsEPIC<-function(userData, EPIC = TRUE, compositeCellType = "Blo
     colnames(combinedRGset) <- newpd$sampleNames
     rm(referenceRGset)
     
-    if(verbose) message("[estimateCellCounts] Processing user and reference data together.\n")
+    if(verbose) message("Processing user and reference data together.\n")
     
     combinedMset <- processMethod(combinedRGset) 
     rm(combinedRGset)
@@ -53,12 +53,12 @@ estimateCellCountsEPIC<-function(userData, EPIC = TRUE, compositeCellType = "Blo
     colData(mSet) <- as(pData(userData), "DataFrame")
     rm(combinedMset)
 
-	if(verbose) cat("[estimateCellCounts] Picking probes for composition estimation.\n")
+	if(verbose) cat("Picking probes for composition estimation.\n")
 	
 	compData <- pickCompProbes(referenceMset, cellTypes = cellTypes)
 	coefs <- compData$coefEsts
 		
-	if(verbose) cat("[estimateCellCounts] Estimating composition.\n")
+	if(verbose) cat("Estimating composition.\n")
 	counts <- projectCellType(getBeta(userData)[rownames(coefs), ], coefs)
 	rownames(counts) <- sampleNames(userData)
 	
