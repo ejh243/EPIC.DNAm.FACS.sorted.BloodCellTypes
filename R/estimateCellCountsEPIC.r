@@ -1,25 +1,27 @@
-#' Function to load reference data and process with user supplied EPIC data and do cell composition prediction
-#'
-#' 
+#' Function to load reference data included in this package and process with user supplied DNA methylation data to estimate cell composition for blood. This is an implementaion of the Houseman et al (2012) regression calibration approach algorithm for deconvoluting heterogeneous tissue sources like blood. For example, this function will take an RGChannelSet from a DNA methylation (DNAm) study of blood, and return the relative proportions of CD4+ and CD8+ T-cells, monocytes, granulocytes, and b-cells in each sample. Each tissue supports the estimation of different cell types, delimited via the cellTypes argument.
+
+#' The meanPlot should be used to check for large batch effects in the data, reducing the confidence placed in the composition estimates. This plot depicts the average DNA methylation across the cell-type discrimating probes in both the provided and sorted data. The means from the provided heterogeneous samples should be within the range of the sorted samples. If the sample means fall outside the range of the sorted means, the cell type estimates will inflated to the closest cell type. Note that we quantile normalize the sorted data with the provided data to reduce these batch effects.
+
 #' @param userData is an RGChannelSet
 #' @param EPIC is logical indicate whether userData were profiled with the 450K array
-#' @keywords 
-#' @export
-#' @examples
-#' estimateCellCountsEPIC()
+#' @param processMethod Specify how the user and reference data should be processed together. Default input "auto" will use preprocessQuantile in line with the existing literature. Set it to the name of a preprocessing function as a character if you want to override it, like "preprocessFunnorm".
+#' @param probeSelect Specify how probes should be selected to distinguish cell types. Options include "both", which selects an equal number (50) of probes (with F-stat p-value < 1E-8) with the greatest magnitude of effect from the hyper- and hypo-methylated sides, and "any", which selects the 100 probes (with F-stat p-value < 1E-8) with the greatest magnitude of difference regardless of direction of effect. Default input "auto" will use "both" for blood, in line with previous versions of this function and/or our recommendations.
+#' @param cellTypes A vector to specifiy which cell types the user wishes to estimate. A subset of c("CD8T","CD4T", "Bcell","Mono","Gran") is allowed.
+#' @param returnAll Should the composition table and the normalized user supplied data be return?
+#' @param meanPlot Whether to plots the average DNA methylation across the cell-type discrimating probes within the mixed and sorted samples.
+#' @param verbose Should the function be verbose?
+#' @return A matrix containing the estimated proportion of each cell type for each sample. Columns contain cell types while rows contain samples. 
+#' @return If returnAll=TRUE a list of a count matrix (see previous paragraph), a composition table and the normalized user data in form of a GenomicMethylSet.
+
 
 ### skips normalisation step
 
-estimateCellCountsEPIC<-function(userData, EPIC = TRUE, compositeCellType = "Blood",processMethod = "auto",probeSelect = "auto", cellTypes = c("CD8T","CD4T", "Bcell","Mono","Gran"), returnAll = FALSE, meanPlot = FALSE, verbose = TRUE){
+estimateCellCountsEPIC<-function(userData, EPIC = TRUE, processMethod = "auto",probeSelect = "auto", cellTypes = c("CD8T","CD4T", "Bcell","Mono","Gran"), returnAll = FALSE, meanPlot = FALSE, verbose = TRUE){
 
-	if ((processMethod == "auto") && (compositeCellType %in% c("Blood", "DLPFC")))
+	if ((processMethod == "auto"))
         processMethod <- "preprocessQuantile"
-    if ((processMethod == "auto") && (!compositeCellType %in% c("Blood", "DLPFC")))
-        processMethod <- "preprocessNoob"
     processMethod <- get(processMethod)
-    if ((probeSelect == "auto") && (compositeCellType == "CordBlood")){
-        probeSelect <- "any"} 
-    if ((probeSelect == "auto") && (compositeCellType != "CordBlood")){
+     if ((probeSelect == "auto")){
         probeSelect <- "both"}
 	if(EPIC){
 		referenceRGset<-RGSet.ref

@@ -1,5 +1,5 @@
 # EPICBloodCompCalc
-This package provides DNA methylation reference data from FACs sorted purified blood cell typesprofiled using the Illumina Infinium MethylationEPIC BeadChip. Specifically it includes profiles for CD4 T cells, CD8 T cells, B cells, Monocytes and Granulocytes purified from 28 individuals. 
+This package provides DNA methylation reference data from FACs sorted purified blood cell typesprofiled using the Illumina Infinium MethylationEPIC BeadChip. Specifically it includes profiles for CD4 T cells, CD8 T cells, B cells, Monocytes and Granulocytes purified from 28 individuals (140 samples in total). 
 The package also includes a vignette to aid users estimate cellular proportions from their DNA methylation data applicable for DNA methylation data profiled in blood on either the Illumina 450K or EPIC BeadChip.
 
 
