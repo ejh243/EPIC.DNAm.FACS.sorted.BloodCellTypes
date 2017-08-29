@@ -11,7 +11,8 @@ RoxygenNote: 6.0.1.9000
 Imports: minfi,
     genefilter,
     quadprog,
-	IlluminaHumanMethylationEPICmanifest
+	IlluminaHumanMethylationEPICmanifest, 
+	AnnotationHubData
 Suggests: knitr,
     rmarkdown
 VignetteBuilder: knitr
