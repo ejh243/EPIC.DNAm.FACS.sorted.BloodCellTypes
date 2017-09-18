@@ -16,30 +16,31 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-This vignette demonstrates how to use the provided reference DNA methyation data for purified blood cell types to estimate cellular proportions. The reference data were generated with the Illumina Infinium MethylationEPIC BeadChip and includes CD4 T cells, CD8 T cells, B cells, Monocytes and Granulocytes. The output is a matrix with one column per cell type and one row per sample where the values represent the estimated cellular proportion for that sample and that cell type.The estimates are derived using the Houseman reference based algorithm. 
+This vignette demonstrates how to use the provided reference DNA methyation data for purified blood cell types to estimate cellular proportions. The reference data were generated with the Illumina Infinium MethylationEPIC BeadChip and includes CD4 T cells, CD8 T cells, B cells, Monocytes and Granulocytes. The output is a matrix with one column per cell type and one row per sample where the values represent the estimated cellular proportion for that sample and that cell type.The estimates are caclualted using the Houseman reference based algorithm, for details of the mathematics behind this algorithm, I refer you to the [orignial manuscript](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-13-86).  While the reference data were generated with Illumina Infinium MethylationEPIC BeadChip, the function will accept data generated with the Illumina Infinium Methylation450K BeadChip array. 
 
 
 ### Install the package
 
-The commands below will install the package directly from GitHub. NB it assumes minfi, genefilter and quadprog, IlluminaHumanMethylationEPICmanifest, IlluminaHumanMethylation450kmanifest are already installed. 
+For instructions on how to install this package please look at the [GitHub page](https://github.com/ejh243/EPICBloodCompCalc).
+
+### Set up your R environment
+
+This section of code will load the relevant R libraries. ote it assumes these are already installed. If they are not, this will need to be done prior to proceeding with this vignette. 
 
 ```{r,eval=FALSE}
 
-install.packages("devtools")
-library("devtools")
-install_github("ejh243/EPICBloodCompCalc")
-library(EPICBloodCompCalc)
 library(minfi)
 library(genefilter)
 library(quadprog)
 library(IlluminaHumanMethylationEPICmanifest)
 library(IlluminaHumanMethylation450kmanifest) # only if your data were profiled with the 450K array.
+library(EPICBloodCompCalc)
 
 ```
 
 ### Estimate cellular composition
 
-To estimate cellular composition you need to load your data in from idats files to an RGChannelSet object. This code will do this.
+To estimate cellular composition you need to load your data in from idats files to an RGChannelSet object. This is because your supplied data will be normalised with the reference data and therefore all the raw data is required. This code will do this.
 
 
 ```{r,eval=FALSE}
@@ -51,29 +52,20 @@ RGSet <- read.metharray(samplesToLoad) ## load from idat files
 
 To estimate cellular composition for these samples run:
 
-
-```{r,eval=FALSE}
-samplesToLoad<- ## list of samples typically SentrixID_SentrixPosition for which you have two idat files
-setwd() ## change to directory where idat files are located
-RGSet <- read.metharray(samplesToLoad) ## load from idat files
-
-```
-
-
-
 ```{r,eval=FALSE}
 ## to estimate cellular proportions for data generated with the EPIC array
 counts<-estimateCellCountsEPIC(RGSet, EPIC=TRUE, cellTypes=c("Bcells", "CD4Tcells", "CD8Tcells", "Monocytes", "Granulocytes"))
 
 ```
 
-You can adjust the 'cellTypes' argument to select a subset of cell types to estimate (for example if you have PBMCs and don't want to estimate the proportion of granulocytes).
+You can adjust the 'cellTypes' argument to select a subset of cell types to estimate, for example if you have PBMCs and don't want to estimate the proportion of granulocytes.
 
 
-By default the package assumes that you are going to supply DNA methylation data profiled with the EPIC array, if you infact have data from the 450K array change the 'EPIC' argument to FALSE as shown here
+By default the package assumes that you are going to supply DNA methylation data profiled with the EPIC array, if you have data from the 450K array change the 'EPIC' argument to FALSE as shown here:
 
 ```{r,eval=FALSE}
 ## to estimate cellular proportions for data generated with the 450K array
 counts<-estimateCellCountsEPIC(RGSet, EPIC=FALSE, cellTypes=c("Bcells", "CD4Tcells", "CD8Tcells", "Monocytes", "Granulocytes"))
 
 ```
+
