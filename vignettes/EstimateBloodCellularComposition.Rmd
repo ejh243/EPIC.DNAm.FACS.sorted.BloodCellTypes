@@ -21,14 +21,20 @@ This vignette demonstrates how to use the provided reference DNA methyation data
 
 ### Install the package
 
-The commands below will install the package directly from GitHub. NB it assumes minfi, genefilter and quadprog, IlluminaHumanMethylationEPICmanifest, IlluminaHumanMethylation450kmanifest are already installed. 
+It is recommended that the package is installed from Bioconductor. It will then need to be loaded.
 
 ```{r,eval=FALSE}
 
-install.packages("devtools")
-library("devtools")
-install_github("ejh243/EPICBloodCompCalc")
 library(EPICBloodCompCalc)
+
+```
+
+### Set up the environment
+
+This vgnettes assumes minfi, genefilter and quadprog, IlluminaHumanMethylationEPICmanifest, IlluminaHumanMethylation450kmanifest are already installed. 
+
+```{r,eval=FALSE}
+
 library(minfi)
 library(genefilter)
 library(quadprog)
