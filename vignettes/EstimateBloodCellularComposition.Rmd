@@ -15,17 +15,25 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-
-This vignette demonstrates how to use the provided reference DNA methyation data for purified blood cell types to estimate cellular proportions. The reference data were generated with the Illumina Infinium MethylationEPIC BeadChip and includes CD4 T cells, CD8 T cells, B cells, Monocytes and Granulocytes. The output is a matrix with one column per cell type and one row per sample where the values represent the estimated cellular proportion for that sample and that cell type.The estimates are caclualted using the Houseman reference based algorithm, for details of the mathematics behind this algorithm, I refer you to the [orignial manuscript](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-13-86).  While the reference data were generated with Illumina Infinium MethylationEPIC BeadChip, the function will accept data generated with the Illumina Infinium Methylation450K BeadChip array. 
-
+This vignette demonstrates how to use the provided reference DNA methyation data for purified blood cell types to estimate cellular proportions. The reference data were generated with 
+the Illumina Infinium MethylationEPIC BeadChip and includes CD4 T cells, CD8 T cells, B cells, Monocytes and Granulocytes. The output is a matrix with one column per cell type and one 
+row per sample where the values represent the estimated cellular proportion for that sample and that cell type.The estimates are calculated using the Houseman reference based algorithm, 
+for details of the mathematics behind this algorithm, I refer you to the [orignial manuscript](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-13-86).  While the 
+reference data were generated with Illumina Infinium MethylationEPIC BeadChip, the function will accept data generated with the Illumina Infinium Methylation450K BeadChip array. 
 
 ### Install the package
 
-For instructions on how to install this package please look at the [GitHub page](https://github.com/ejh243/EPICBloodCompCalc).
+It is recommended that the package is installed from Bioconductor. It will then need to be loaded.
+
+```{r,eval=FALSE}
+
+library(EPIC.DNAm.FACS.sorted.BloodCellTypes)
+
+```
 
 ### Set up your R environment
 
-This section of code will load the relevant R libraries. ote it assumes these are already installed. If they are not, this will need to be done prior to proceeding with this vignette. 
+This section of code will load the relevant R libraries. Note it assumes these are already installed. If they are not, this will need to be done prior to proceeding with this vignette. 
 
 ```{r,eval=FALSE}
 
@@ -34,13 +42,13 @@ library(genefilter)
 library(quadprog)
 library(IlluminaHumanMethylationEPICmanifest)
 library(IlluminaHumanMethylation450kmanifest) # only if your data were profiled with the 450K array.
-library(EPICBloodCompCalc)
 
 ```
 
 ### Estimate cellular composition
 
-To estimate cellular composition you need to load your data in from idats files to an RGChannelSet object. This is because your supplied data will be normalised with the reference data and therefore all the raw data is required. This code will do this.
+To estimate cellular composition you need to load your data in from idats files to an RGChannelSet object. This is because your supplied data will be normalised with the reference data 
+and therefore all the raw data is required. This code will do this.
 
 
 ```{r,eval=FALSE}

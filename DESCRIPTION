@@ -1,5 +1,5 @@
-Package: EPICBloodCompCalc
-Title: Estimates Cellular Composition From Blood DNA Methylation Data.
+Package: EPIC.DNAm.FACS.sorted.BloodCellTypes
+Title: Provides FACS Sorted Blood Cell Type DNA Methylation Reference Data to Estimate Blood Cellular Composition.
 Version: 0.0.0.9000
 Authors@R: person("Eilis", "Hannon", email = "E.J.Hannon@exeter.ac.uk", role = c("aut", "cre"))
 Author: Eilis Hannon [aut, cre]
