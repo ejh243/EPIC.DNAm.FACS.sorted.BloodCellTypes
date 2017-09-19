@@ -14,9 +14,11 @@ Imports: minfi,
     genefilter,
     quadprog,
 	IlluminaHumanMethylationEPICmanifest, 
-	AnnotationHubData
+	AnnotationHubData,
+	stats,
+	methods
 Suggests: knitr,
     rmarkdown
 VignetteBuilder: knitr
-URL: https://github.com/ejh243/EPICBloodCompCalc
-BugReports: https://github.com/ejh243/EPICBloodCompCalc/issues
+URL: https://github.com/ejh243/EPIC.DNAm.FACS.sorted.BloodCellTypes
+BugReports: https://github.com/ejh243/EPIC.DNAm.FACS.sorted.BloodCellTypes.git/issues
