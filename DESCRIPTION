@@ -16,7 +16,8 @@ Imports: minfi,
 	IlluminaHumanMethylationEPICmanifest, 
 	AnnotationHubData,
 	stats,
-	methods
+	methods,
+	matrixStats
 Suggests: knitr,
     rmarkdown
 VignetteBuilder: knitr
