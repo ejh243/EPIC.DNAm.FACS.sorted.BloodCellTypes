@@ -7,6 +7,7 @@ vignette: >
   %\EstimateBloodCellularComposition{Vignette Title}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteIndexEntry{EstimateBloodCellularComposition}
 ---
 
 ## Estimate cellular composition from blood DNA methylation data
