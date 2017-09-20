@@ -4,3 +4,8 @@
 importFrom("graphics", "legend", "plot")
 importFrom("methods", "as")
 importFrom("stats", "as.formula", "lm", "model.matrix", "pf", "vcov")
+imports(AnnotationHubData)
+imports(IlluminaHumanMethylationEPICmanifest)
+imports(genefilter)
+imports(minfi)
+imports(quadprog)
