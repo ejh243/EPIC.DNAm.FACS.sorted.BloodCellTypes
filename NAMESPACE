@@ -4,8 +4,11 @@
 importFrom("graphics", "legend", "plot")
 importFrom("methods", "as")
 importFrom("stats", "as.formula", "lm", "model.matrix", "pf", "vcov")
-imports(AnnotationHubData)
+importFrom("minfi", "convertArray", "pData", "combineArrays", "getBeta", "sampleNames")
+importFrom("genefilter", "rowFtests","rowttests")
+importFrom("quadprog", "solve.QP")
 imports(IlluminaHumanMethylationEPICmanifest)
-imports(genefilter)
-imports(minfi)
-imports(quadprog)
+imports(IlluminaHumanMethylation450Kmanifest)
+
+
+
