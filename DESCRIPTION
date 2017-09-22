@@ -5,7 +5,7 @@ Authors@R: person("Eilis", "Hannon", email = "E.J.Hannon@exeter.ac.uk", role = c
 Author: Eilis Hannon [aut, cre]
 Maintainer: Eilis Hannon <E.J.Hannon@exeter.ac.uk>
 Description: This package uses DNA methylation data for purified blood cell types profiled with the EPIC array to estimate cellular composition variables that can be included in epigenome-wide association studys of whole blood. 
-Depends: R (>= 3.3.2)
+Depends: R (>= 3.4)
 License: MIT
 Encoding: UTF-8
 LazyData: true
@@ -13,7 +13,8 @@ RoxygenNote: 6.0.1.9000
 Imports: minfi,
     genefilter,
     quadprog,
-	IlluminaHumanMethylationEPICmanifest, 
+	IlluminaHumanMethylationEPICmanifest,
+	IlluminaHumanMethylation450Kmanifest
 	stats,
 	methods,
 	matrixStats,
