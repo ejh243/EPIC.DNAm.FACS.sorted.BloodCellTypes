@@ -14,7 +14,7 @@ Imports: minfi,
     genefilter,
     quadprog,
 	IlluminaHumanMethylationEPICmanifest,
-	IlluminaHumanMethylation450Kmanifest
+	IlluminaHumanMethylation450Kmanifest,
 	stats,
 	methods,
 	matrixStats,
