@@ -19,7 +19,7 @@ knitr::opts_chunk$set(echo = TRUE)
 This vignette demonstrates how to use the provided reference DNA methyation data for purified blood cell types to estimate cellular proportions. The reference data were generated with 
 the Illumina Infinium MethylationEPIC BeadChip and includes CD4 T cells, CD8 T cells, B cells, Monocytes and Granulocytes. The output is a matrix with one column per cell type and one 
 row per sample where the values represent the estimated cellular proportion for that sample and that cell type.The estimates are calculated using the Houseman reference based algorithm, 
-for details of the mathematics behind this algorithm, I refer you to the [orignial manuscript](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-13-86).  While the 
+for details of the mathematics behind this algorithm, I refer you to the [original manuscript](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-13-86).  While the 
 reference data were generated with Illumina Infinium MethylationEPIC BeadChip, the function will accept data generated with the Illumina Infinium Methylation450K BeadChip array. 
 
 ### Install the package
