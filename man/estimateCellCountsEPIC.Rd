@@ -36,3 +36,8 @@ If meanPlot=TRUE A plot depicting the average DNA methylation across the cell-ty
 \description{
 Function to load reference data included in this package and process with user supplied DNA methylation data to estimate cell composition for blood. This is an implementaion of the Houseman et al (2012) regression calibration approach algorithm for deconvoluting heterogeneous tissue sources like blood. This function is adapted from the minfi package. This function will take an RGChannelSet from a DNA methylation (DNAm) study of blood, and return the relative proportions of CD4+ and CD8+ T-cells, monocytes, granulocytes, and b-cells in each sample. The function requires an RGChannelSet as prior to the estimation step, it normalises the referecne data and user supplied data together. Although the reference data was generated with the Illumina EPIC microarray, users can provde 450K datasets for estimation.
 }
+\examples{
+\dontrun{ 
+counts<-estimateCellCountsEPIC(RGSet, EPIC=TRUE, cellTypes=c("Bcells", "CD4Tcells", "CD8Tcells", "Monocytes", "Granulocytes"))
+}
+}
