@@ -8,7 +8,7 @@ importFrom("minfi", "convertArray", "pData", "combineArrays", "getBeta", "sample
 importFrom("genefilter", "rowFtests","rowttests")
 importFrom("quadprog", "solve.QP")
 import(IlluminaHumanMethylationEPICmanifest)
-import(IlluminaHumanMethylation450Kmanifest)
+import(IlluminaHumanMethylation450kmanifest)
 
 
 
