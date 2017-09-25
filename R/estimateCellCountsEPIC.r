@@ -14,9 +14,8 @@
 #' @return If returnAll=TRUE a list of a count matrix (see previous paragraph), a composition table and the normalized user data in form of a GenomicMethylSet.
 #' @return If meanPlot=TRUE A plot depicting the average DNA methylation across the cell-type discrimating probes in both the provided and sorted data is produced. The means from the provided heterogeneous samples should be within the range of the sorted samples. If the sample means fall outside the range of the sorted means, the cell type estimates will inflated to the closest cell type. Note that we quantile normalize the sorted data with the provided data to reduce these batch effects.
 #' @examples
-#' \dontrun{ 
 #' counts<-estimateCellCountsEPIC(RGSet, EPIC=TRUE, cellTypes=c("Bcells", "CD4Tcells", "CD8Tcells", "Monocytes", "Granulocytes"))
-#' }
+
 
 
 estimateCellCountsEPIC<-function(userData, EPIC = TRUE, processMethod = "auto",probeSelect = "auto", cellTypes = c("Bcells","CD4Tcells","CD8Tcells","Monocytes","Granulocytes"), returnAll = FALSE, meanPlot = FALSE, verbose = TRUE){
