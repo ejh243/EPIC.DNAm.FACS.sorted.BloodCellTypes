@@ -7,8 +7,8 @@ importFrom("stats", "as.formula", "lm", "model.matrix", "pf", "vcov")
 importFrom("minfi", "convertArray", "pData", "combineArrays", "getBeta", "sampleNames")
 importFrom("genefilter", "rowFtests","rowttests")
 importFrom("quadprog", "solve.QP")
-#import(IlluminaHumanMethylationEPICmanifest)
-#import(IlluminaHumanMethylation450Kmanifest)
+import(IlluminaHumanMethylationEPICmanifest)
+import(IlluminaHumanMethylation450kmanifest)
 
 
 
